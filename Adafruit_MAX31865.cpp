@@ -259,3 +259,19 @@ uint8_t Adafruit_MAX31865::spixfer(uint8_t x) {
 
   return reply;
 }
+
+void Adafruit_MAX31865::setNoiseFilter(max31865_noise_filter_t noise_filter) {
+    uint8_t t = readRegister8(MAX31856_CONFIG_REG);
+    noise_filter == MAX31865_NOISE_FILTER_50HZ ? (t |= 0x01u) : (t &= 0xfeu);
+    writeRegister8(MAX31856_CONFIG_REG, t);
+}
+
+max31865_noise_filter_t Adafruit_MAX31865::getNoiseFilter() {
+    uint8_t t = readRegister8(MAX31856_CONFIG_REG);
+    if (t | 0x01u) {
+        return MAX31865_NOISE_FILTER_50HZ;
+    } else {
+        return MAX31865_NOISE_FILTER_60HZ;
+    }
+}
+

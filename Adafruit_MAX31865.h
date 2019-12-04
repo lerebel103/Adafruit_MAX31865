@@ -25,8 +25,6 @@
 #define MAX31856_CONFIG_3WIRE          0x10
 #define MAX31856_CONFIG_24WIRE         0x00
 #define MAX31856_CONFIG_FAULTSTAT      0x02
-#define MAX31856_CONFIG_FILT50HZ       0x01
-#define MAX31856_CONFIG_FILT60HZ       0x00
 
 #define MAX31856_RTDMSB_REG           0x01
 #define MAX31856_RTDLSB_REG           0x02
@@ -54,12 +52,16 @@
  #include "WProgram.h"
 #endif
 
-typedef enum max31865_numwires { 
+typedef enum max31865_numwires_t {
   MAX31865_2WIRE = 0,
   MAX31865_3WIRE = 1,
   MAX31865_4WIRE = 0
 } max31865_numwires_t;
 
+typedef enum max31865_noise_filter_t {
+    MAX31865_NOISE_FILTER_50HZ = 0,
+    MAX31865_NOISE_FILTER_60HZ = 1
+};
 
 class Adafruit_MAX31865 {
  public:
@@ -76,6 +78,9 @@ class Adafruit_MAX31865 {
   void setWires(max31865_numwires_t wires);
   void autoConvert(boolean b);
   void enableBias(boolean b);
+
+  void setNoiseFilter(max31865_noise_filter_t noise_filter);
+  max31865_noise_filter_t getNoiseFilter();
 
   float temperature(float RTDnominal, float refResistor);
 

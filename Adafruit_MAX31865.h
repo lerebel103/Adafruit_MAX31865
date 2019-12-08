@@ -61,7 +61,7 @@ typedef enum max31865_numwires_t {
 typedef enum max31865_noise_filter_t {
     MAX31865_NOISE_FILTER_50HZ = 0,
     MAX31865_NOISE_FILTER_60HZ = 1
-};
+} max31865_noise_filter_t;
 
 class Adafruit_MAX31865 {
  public:
